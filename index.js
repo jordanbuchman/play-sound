@@ -38,7 +38,9 @@ function Play(opts){
       return next(new Error("Couldn't find a suitable audio player"))
     }
 
-    return child_process.spawn(this.player, [what,])
+    return child_process.execFile(this.player, [what], function(err, stdout, stderr){
+      next(err);
+    })
   }
 
   this.test = function(next) { this.play('./assets/test.mp3', next) }
